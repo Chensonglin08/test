@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课表</title>
+    <style>
+        .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+            font-size: 24px;
+            color: #fff;
+            background-image: url('https://img0.baidu.com/it/u=3873490444,6569468&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=889');
+            background-size: 100% 100%;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .self_text {
+            margin-top: 12px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .class_text {
+            margin-top: 40px;
+        }
+
+        .day {
+            font-weight: bold;
+        }
+
+        .len {
+            font-size: 16px;
+            margin-top: 12px;
+        }
+
+        .flex {
+            display: flex;
+            flex-direction: column;
+            row-gap: 6px;
+            align-items: center;
+        }
+
+        .flex:not(:last-child) {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+        <div class="header">
+            <div class="day"></div>
+            <div class="len"></div>
+        </div>
+        <div class="self_text"></div>
+        <div class="class_text"></div>
+    </div>
+    <script>
+        const selfImprovement = ['凡事发生必有利于我！！', '追求你渴望的，挑战你未有的。', '人生没有彩排，每一天都是现场直播！', '不是每个尝试都会成功，但每个尝试都让你更接近成功！', '人生就像一场旅行，不必在乎目的地，在乎的是沿途的风景以及看风景的心情。']
+        const randomItem = selfImprovement[Math.floor(Math.random() * selfImprovement.length)];
+        const timetableArr = [
+            {
+                day: '星期日'
+            },
+            {
+                day: '星期一',
+                course: [
+                    {
+                        time: '08:20~09:00',
+                        class: '语文'
+                    },
+                    {
+                        time: '10:20~11:10',
+                        class: '班团活动'
+                    },
+                    {
+                        time: '15:40~16:20',
+                        class: '语文'
+                    },
+                    {
+                        time: '16:30~17:10',
+                        class: '语文'
+                    }
+                ]
+            },
+            {
+                day: '星期二',
+                course: [
+                    {
+                        time: '07:30~08:10',
+                        class: '早读'
+                    },
+                    {
+                        time: '8:20~09:00',
+                        class: '语文'
+                    },
+                    {
+                        time: '14:50~15:30',
+                        class: '书法'
+                    },
+                    {
+                        time: '18:40~19:20',
+                        class: '晚自习'
+                    },
+                    {
+                        time: '19:30~20:10',
+                        class: '晚自习'
+                    }
+                ]
+            },
+            {
+                day: '星期三',
+                course: [
+                    {
+                        time: '09:10~09:50',
+                        class: '语文'
+                    },
+                    {
+                        time: '11:20~12:00',
+                        class: '体育'
+                    },
+                    {
+                        time: '16:30~17:10',
+                        class: '语文'
+                    },
+                    {
+                        time: '17:20~18:00',
+                        class: '语文'
+                    }
+                ]
+            },
+            {
+                day: '星期四',
+                course: [
+                    {
+                        time: '07:30~08:10',
+                        class: '早读'
+                    },
+                    {
+                        time: '8:20~09:00',
+                        class: '语文'
+                    },
+                    {
+                        time: '11:20~12:00',
+                        class: '体育'
+                    },
+                    {
+                        time: '17:20~18:00',
+                        class: '语文'
+                    }
+                ]
+            },
+            {
+                day: '星期五',
+                course: [
+                    {
+                        time: '09:10~09:50',
+                        class: '语文'
+                    },
+                    {
+                        time: '14:00~14:40',
+                        class: '生安'
+                    },
+                    {
+                        time: '16:30~17:10',
+                        class: '语文'
+                    },
+                    {
+                        time: '18:40~19:20',
+                        class: '晚自习'
+                    },
+                    {
+                        time: '19:30~20:10',
+                        class: '晚自习'
+                    }
+                ]
+            },
+            {
+                day: '星期六'
+            }
+        ];
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        const nowDay = timetableArr[dayOfWeek];
+        const text = nowDay.day;
+        const course = nowDay.course;
+        const day_text = document.querySelector('.day');
+        const len_text = document.querySelector('.len');
+        const self_text = document.querySelector('.self_text');
+        const class_text = document.querySelector('.class_text');
+        day_text.innerHTML += `今日${text}`;
+        self_text.innerHTML = randomItem;
+        if (course) {
+            len_text.innerHTML = `🎊有${course.length}节课！小刘同学冲鸭！🎊`;
+        }
+        if (!course) {
+            class_text.innerHTML = '今日周末！好好休息喔！';
+        } else {
+            course.forEach((item) => {
+                const { time, class: classText } = item;
+                class_text.innerHTML += `<div class="flex"><span>${time}</span><span>${classText}</span></div>`;
+            })
+        }
+    </script>
+</body>
+
+
+</html>
